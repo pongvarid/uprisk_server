@@ -25,5 +25,9 @@ class Agency(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return "("+self.agency_type.name+") "+self.name  
+        return "("+self.agency_type.name+") "+self.name
+    @property
+    def fullname(self):
+        return self.name
+
     

@@ -20,4 +20,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/default/',include('UPService.services.default_urls') ) ,
+    path('api/core/user/',include('UPCore.urls.user') ) ,
 ]

@@ -12,5 +12,8 @@ router.register(r'mission', views.MissionViewSet)
 router.register(r'strategic', views.StrategicViewSet)
 router.register(r'strategy', views.StrategyViewSet)
 router.register(r'rmplan', views.RmPlanViewSet)
+router.register(r'sofceg', views.SOFCEGViewSet)
+router.register(r'effectofrisk', views.EffectOfRiskViewSet)
+router.register(r'riskrm', views.RiskRMViewSet)
 
 urlpatterns = router.urls

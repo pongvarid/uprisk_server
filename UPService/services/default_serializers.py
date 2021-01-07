@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from UPService.models import AgencyType, Agency, Profile, Year, Mission, Strategic, Strategy, RmPlan
+from UPService.models import AgencyType, Agency, Profile, Year, Mission, Strategic, Strategy, RmPlan, SOFCEG, EffectOfRisk, RiskRM
 
 
 class AgencyTypeSerializer(ModelSerializer):
@@ -55,4 +55,25 @@ class RmPlanSerializer(ModelSerializer):
 
     class Meta:
         model = RmPlan
+        fields = '__all__'
+
+
+class SOFCEGSerializer(ModelSerializer):
+
+    class Meta:
+        model = SOFCEG
+        fields = '__all__'
+
+
+class EffectOfRiskSerializer(ModelSerializer):
+
+    class Meta:
+        model = EffectOfRisk
+        fields = '__all__'
+
+
+class RiskRMSerializer(ModelSerializer):
+
+    class Meta:
+        model = RiskRM
         fields = '__all__'

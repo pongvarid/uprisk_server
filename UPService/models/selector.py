@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from UPService.models.general import *
 
 class Year(models.Model):
     class Meta:
@@ -37,7 +38,9 @@ class Strategy(models.Model):
         verbose_name = _("กลยุทธ์")
         verbose_name_plural = _("กลยุทธ์") 
     name = models.CharField(max_length=255,verbose_name="หัวข้อกลยุทธ์")
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, blank=True, null=True, verbose_name="หน่วยงาน")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
+
