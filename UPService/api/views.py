@@ -1,8 +1,8 @@
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from UPService.services.default_serializers import AgencyTypeSerializer, AgencySerializer, ProfileSerializer, YearSerializer, MissionSerializer, StrategicSerializer, StrategySerializer, RmPlanSerializer, SOFCEGSerializer, EffectOfRiskSerializer, RiskRMSerializer
-from UPService.models import AgencyType, Agency, Profile, Year, Mission, Strategic, Strategy, RmPlan, SOFCEG, EffectOfRisk, RiskRM
+from UPService.api.serializers import AgencyTypeSerializer, AgencySerializer, ProfileSerializer, YearSerializer, MissionSerializer, ChoiceSerializer, RmPlanSerializer, RiskRMSerializer
+from UPService.models import AgencyType, Agency, Profile, Year, Mission, Choice, RmPlan, RiskRM
 
 
 class AgencyTypeAPIView(APIView):
@@ -240,22 +240,22 @@ class MissionAPIListView(APIView):
         return Response(serializer.errors, status=400)
 
 
-class StrategicAPIView(APIView):
+class ChoiceAPIView(APIView):
 
     def get(self, request, id, format=None):
         try:
-            item = Strategic.objects.get(pk=id)
-            serializer = StrategicSerializer(item)
+            item = Choice.objects.get(pk=id)
+            serializer = ChoiceSerializer(item)
             return Response(serializer.data)
-        except Strategic.DoesNotExist:
+        except Choice.DoesNotExist:
             return Response(status=404)
 
     def put(self, request, id, format=None):
         try:
-            item = Strategic.objects.get(pk=id)
-        except Strategic.DoesNotExist:
+            item = Choice.objects.get(pk=id)
+        except Choice.DoesNotExist:
             return Response(status=404)
-        serializer = StrategicSerializer(item, data=request.data)
+        serializer = ChoiceSerializer(item, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -263,71 +263,24 @@ class StrategicAPIView(APIView):
 
     def delete(self, request, id, format=None):
         try:
-            item = Strategic.objects.get(pk=id)
-        except Strategic.DoesNotExist:
+            item = Choice.objects.get(pk=id)
+        except Choice.DoesNotExist:
             return Response(status=404)
         item.delete()
         return Response(status=204)
 
 
-class StrategicAPIListView(APIView):
+class ChoiceAPIListView(APIView):
 
     def get(self, request, format=None):
-        items = Strategic.objects.order_by('pk')
+        items = Choice.objects.order_by('pk')
         paginator = PageNumberPagination()
         result_page = paginator.paginate_queryset(items, request)
-        serializer = StrategicSerializer(result_page, many=True)
+        serializer = ChoiceSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = StrategicSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-
-class StrategyAPIView(APIView):
-
-    def get(self, request, id, format=None):
-        try:
-            item = Strategy.objects.get(pk=id)
-            serializer = StrategySerializer(item)
-            return Response(serializer.data)
-        except Strategy.DoesNotExist:
-            return Response(status=404)
-
-    def put(self, request, id, format=None):
-        try:
-            item = Strategy.objects.get(pk=id)
-        except Strategy.DoesNotExist:
-            return Response(status=404)
-        serializer = StrategySerializer(item, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-
-    def delete(self, request, id, format=None):
-        try:
-            item = Strategy.objects.get(pk=id)
-        except Strategy.DoesNotExist:
-            return Response(status=404)
-        item.delete()
-        return Response(status=204)
-
-
-class StrategyAPIListView(APIView):
-
-    def get(self, request, format=None):
-        items = Strategy.objects.order_by('pk')
-        paginator = PageNumberPagination()
-        result_page = paginator.paginate_queryset(items, request)
-        serializer = StrategySerializer(result_page, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = StrategySerializer(data=request.data)
+        serializer = ChoiceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -381,100 +334,6 @@ class RmPlanAPIListView(APIView):
         return Response(serializer.errors, status=400)
 
 
-class SOFCEGAPIView(APIView):
-
-    def get(self, request, id, format=None):
-        try:
-            item = SOFCEG.objects.get(pk=id)
-            serializer = SOFCEGSerializer(item)
-            return Response(serializer.data)
-        except SOFCEG.DoesNotExist:
-            return Response(status=404)
-
-    def put(self, request, id, format=None):
-        try:
-            item = SOFCEG.objects.get(pk=id)
-        except SOFCEG.DoesNotExist:
-            return Response(status=404)
-        serializer = SOFCEGSerializer(item, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-
-    def delete(self, request, id, format=None):
-        try:
-            item = SOFCEG.objects.get(pk=id)
-        except SOFCEG.DoesNotExist:
-            return Response(status=404)
-        item.delete()
-        return Response(status=204)
-
-
-class SOFCEGAPIListView(APIView):
-
-    def get(self, request, format=None):
-        items = SOFCEG.objects.order_by('pk')
-        paginator = PageNumberPagination()
-        result_page = paginator.paginate_queryset(items, request)
-        serializer = SOFCEGSerializer(result_page, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = SOFCEGSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-
-class EffectOfRiskAPIView(APIView):
-
-    def get(self, request, id, format=None):
-        try:
-            item = EffectOfRisk.objects.get(pk=id)
-            serializer = EffectOfRiskSerializer(item)
-            return Response(serializer.data)
-        except EffectOfRisk.DoesNotExist:
-            return Response(status=404)
-
-    def put(self, request, id, format=None):
-        try:
-            item = EffectOfRisk.objects.get(pk=id)
-        except EffectOfRisk.DoesNotExist:
-            return Response(status=404)
-        serializer = EffectOfRiskSerializer(item, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-
-    def delete(self, request, id, format=None):
-        try:
-            item = EffectOfRisk.objects.get(pk=id)
-        except EffectOfRisk.DoesNotExist:
-            return Response(status=404)
-        item.delete()
-        return Response(status=204)
-
-
-class EffectOfRiskAPIListView(APIView):
-
-    def get(self, request, format=None):
-        items = EffectOfRisk.objects.order_by('pk')
-        paginator = PageNumberPagination()
-        result_page = paginator.paginate_queryset(items, request)
-        serializer = EffectOfRiskSerializer(result_page, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = EffectOfRiskSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-
 class RiskRMAPIView(APIView):
 
     def get(self, request, id, format=None):
@@ -520,3 +379,14 @@ class RiskRMAPIListView(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+
+class ChoiceCustomAPIView(APIView):
+
+    def get(self, request, name, format=None):
+        try:
+            item = Choice.objects.filter(name=name).values_list('value', flat=True)
+
+            return Response(item)
+        except Choice.DoesNotExist:
+            return Response(status=404)

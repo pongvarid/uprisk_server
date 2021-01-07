@@ -19,6 +19,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/default/',include('UPService.services.default_urls') ) ,
-    path('api/core/user/',include('UPCore.urls.user') ) ,
+    path('api/default/',include('UPService.services.urls') ) ,
+    path('api/custom/',include('UPService.api.urls') ) ,
+    # path('api/core/user/',include('UPCore.urls.user') ) ,
 ]
