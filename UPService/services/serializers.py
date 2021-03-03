@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer,SerializerMethodField
 from UPService.models import AgencyType, Agency, Profile, Year, Mission, Choice, RmPlan, RiskRM
 
 
@@ -56,3 +56,15 @@ class RiskRMSerializer(ModelSerializer):
     class Meta:
         model = RiskRM
         fields = '__all__'
+
+class RmPlanAllSerializer(ModelSerializer):
+    risk = SerializerMethodField()
+    mission = MissionSerializer()
+    class Meta:
+        model = RmPlan
+        fields = '__all__'
+
+    def get_risk(self,obj):
+        risk = RiskRM.objects.get(rm_plan=obj.id)
+        risk = RiskRMSerializer(risk).data
+        return risk

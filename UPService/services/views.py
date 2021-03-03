@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
-from UPService.services.serializers import AgencyTypeSerializer, AgencySerializer, ProfileSerializer, YearSerializer, MissionSerializer, ChoiceSerializer, RmPlanSerializer, RiskRMSerializer
+from UPService.services.serializers import AgencyTypeSerializer, AgencySerializer, ProfileSerializer, YearSerializer, \
+    MissionSerializer, ChoiceSerializer, RmPlanSerializer, RiskRMSerializer, RmPlanAllSerializer
 from UPService.models import AgencyType, Agency, Profile, Year, Mission, Choice, RmPlan, RiskRM
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters
@@ -53,3 +54,6 @@ class RiskRMViewSet(ModelViewSet):
     queryset = RiskRM.objects.order_by('pk')
     serializer_class = RiskRMSerializer
 
+class RmPlanAllViewSet(ModelViewSet):
+    queryset = RmPlan.objects.order_by('pk')
+    serializer_class = RmPlanAllSerializer

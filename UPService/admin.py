@@ -65,3 +65,5 @@ admin.site.register(RmPlan)
 #     search_fields = ['name','year']
 #
 # admin.site.register(RmPlan,RmPlanAdmin)
+
+admin.site.register(RiskRM)
