@@ -12,5 +12,7 @@ router.register(r'mission', views.MissionViewSet)
 router.register(r'choice', views.ChoiceViewSet)
 router.register(r'rmplan', views.RmPlanViewSet)
 router.register(r'riskrm', views.RiskRMViewSet)
+router.register(r'r6', views.RiskRM6ViewSet)
+router.register(r'r12', views.RiskRM12ViewSet)
 router.register(r'plan/all', views.RmPlanAllViewSet)
 urlpatterns = router.urls

@@ -109,7 +109,8 @@ DATABASES = {
         'NAME': 'uprisk',
         'USER': 'root',
         # 'PASSWORD': 'P@$$w0rd1234',
-        'PASSWORD': '1234',
+        #'PASSWORD': '1234',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
